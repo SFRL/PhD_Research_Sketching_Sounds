@@ -320,20 +320,37 @@ function newSound() {
   }
 }
 
+function prepareSound() {
+  if (soundNumber >= 0) {
+    sounds[soundNumber].stop();
+  }
+  nextSound = true; //The next sound will be initiliased in the next draw cycle  
+  nextPt = str(Math.floor(random(56))); //Get random participant for that sound number
+  if (nextPt==47 && nextSoundNumber==9) { //This sketch is empty so chose a different participant
+    nextPt=48;
+  }
+}
+
 function keyPressed() {
-  //When key is pressed display new sketch
-  if (isFinite(key)) {    
-    if (soundNumber >= 0) {
-      sounds[soundNumber].stop();
-    }
-    nextSound = true; //The next sound will be initiliased in the next draw cycle
+  //When numbber key is pressed display new sketch
+  if (isFinite(key)) {
     nextSoundNumber = int(key); //Save pressed key for the next sound to be played
-    nextPt = str(Math.floor(random(56))); //Get random participant for that sound number
-    if (nextPt==47 && nextSoundNumber==9) { //This sketch is empty so chose a different participant
-     nextPt=48;  
+    prepareSound();
+  }
+}
+
+function mousePressed() {
+  //When someone clicks one of the key symbols sound is played
+  if (mouseY>=naviY && mouseY<=naviY+naviSize) {
+    let mousePos = Math.floor((mouseX-naviX)/naviSize);
+    if (mousePos>=0 && mousePos<=9) {
+      nextSoundNumber = (mousePos+1)%10;     
+      prepareSound();
     }
   }
 }
+
+
 
 //Class for drawing dots
 class dot {
