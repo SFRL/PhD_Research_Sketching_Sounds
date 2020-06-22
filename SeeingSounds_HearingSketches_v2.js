@@ -85,7 +85,7 @@ function sizing() {
   let topmargin = 0.06;
   let canvas = 0.5 * (1 - 3*margin);
 
-  textHeight = topmargin * windowHeight;
+
 
   offsetX0 = - windowWidth * canvas;
   offsetY0 = windowHeight * topmargin;
@@ -103,6 +103,11 @@ function sizing() {
   canvasY = canvasX;
 
   speed = canvasX/10;
+
+  textHeight = topmargin * windowHeight;
+  if (6.8*textHeight>canvasX) {
+    textHeight = canvasX/6.8;
+  }
 
   naviSize = (2*canvasX + margin*windowWidth)/10;
   naviX = offsetX1;
