@@ -70,7 +70,7 @@ function preload() {
   soundFormats('mp3');
   for (let i = 0; i<10; i++) {
     sounds.push(loadSound('audio/sound' + str(i+1)));
-    rawboxes.push(loadJSON('data/box' + str(i+1) + '.json'));
+    //rawboxes.push(loadJSON('data/box' + str(i+1) + '.json'));
   }
   font = loadJSON('data/font.json');
   boxes = loadJSON('data/boxes.json');
