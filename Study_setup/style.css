@@ -1,0 +1,241 @@
+﻿/* @import must be at top of file, otherwise CSS will not work */
+/*@import url("//hello.myfonts.net/count/3249ee");*/
+
+
+@font-face {
+    font-family: 'StencilCreek-50';
+    src: url(Font/3249EE_0_0.eot);
+    src: url(Font/3249EE_0_0.eot?#iefix) format('embedded-opentype'),url(Font/3249EE_0_0.woff2) format('woff2'),url(Font/3249EE_0_0.woff) format('woff'),url(Font/3249EE_0_0.ttf) format('truetype');
+}
+
+html {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #666;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Scroll Bar */
+.main::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.frame::-webkit-scrollbar:vertical {
+    width: 10px;
+    background: #666;
+}
+
+.frame::-webkit-scrollbar:horizontal {
+    height: 11px;
+}
+
+.main::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.main::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+/* Headings */
+h1 {
+    font-family: 'StencilCreek-50';
+    font-weight: 100;
+    font-style: normal;
+    font-size: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+.header {
+    box-sizing: border-box;
+    height: 80px;
+    width: 100%;
+    margin: auto;
+    border-bottom: 3px solid black;
+    background-color: white;
+}
+
+#headerText {
+    line-height: 80px;
+}
+
+#MATLogo {
+    max-width: 100%;
+    max-height: 100%;
+    display: inline-block;
+    padding-right: 10px;
+    float: left;
+}
+
+#QMLogo {
+    height: 70px;
+    float: right;
+    display: inline;
+    padding: 5px 10px;
+}
+
+#QMLogoSmall {
+    height: 70px;
+    float: right;
+    display: inline-block;
+    padding: 5px 10px;
+    display: inline;
+}
+
+
+/*Style of div that has all the content */
+.content {
+    display: none;
+    padding: 20px;
+    max-width: 100%;
+    min-height: 100%;
+    background-color: #ffffff;
+}
+
+/*div that contains the sketch field*/
+#sketchHolder {
+    margin: 20px 0;
+}
+
+/* Hide study elements and only display instructions in the beginning*/
+.study {
+    display: none;
+}
+
+/* Navigation Button */
+button {
+    font-family: 'StencilCreek-50';
+    font-weight: 100;
+    font-style: normal;
+    width: 100px;
+    height: 50px;
+    background-color: white;
+    color: black;
+    font-size: 25px;
+    text-align: center;
+    line-height: 50px;
+    margin: auto;
+    display: inline-block;
+}
+
+button {
+    border: 2px solid black;
+}
+
+    button:hover {
+        width: 100px;
+        height: 50px;
+        line-height: 50px;
+        box-shadow: 5px 5px #666;
+        cursor: pointer;
+    }
+
+    button:active {
+        background-color: #666;
+        color: white;
+        width: 100px;
+        height: 50px;
+        line-height: 50px;
+        box-shadow: 5px 5px;
+    }
+
+/* ----------------- */
+/* Survey */
+/* ---------------- */
+
+/* Radio Button Style */
+
+div.buttonGroup, div.menuGroup {
+    display: block;
+    padding: 20px;
+    max-width: 1200px;
+    color: black;
+}
+
+
+/* Create a custom radio button */
+.container {
+    display: inline-flex;
+    justify-content: space-between;
+    text-align: left;
+    width: 120px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    padding-left: 22px;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#consent {
+    width: 100%;
+    text-align: justify;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #ddd;
+    border-radius: 2%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #666;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+}
+
+   
+

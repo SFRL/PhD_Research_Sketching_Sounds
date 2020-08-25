@@ -1,0 +1,259 @@
+﻿<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+
+    <!-- JAVASCRIPT -->
+    <script language="javascript" type="text/javascript" src="p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="sketching.js"></script>
+    <script language="javascript" type="text/javascript" src="dynamic.js"></script>
+
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body onload="studySetup()">
+
+    <div class="header" id="topbar">
+        <img src="Images/logo.gif" id="MATLogo" alt=""><img src="Images/QMLogo.png" id="QMLogo" alt="">
+        <h1 id="headerText">Sketching Sounds</h1>
+
+    </div>
+
+    <!-- Introduction -->
+    <div class="content">
+        <h1>Introduction</h1>
+        <p>
+            We would like to invite you to be part of this research project, if you would like to. You should only agree to take part if you want to,
+            it is entirely up to you. If you choose not to take part there won’t be any disadvantages for you and you will hear no more about it.
+            Please read the following information carefully before you decide to take part; this will tell you why the research is being done and
+            what you will be asked to do if you take part.
+            If you decide to take part, on the next page you will be asked to confirm your consent.
+            You are still free to withdraw at any time and without giving a reason by simply leaving the study and your data will not be collected. <br><br>
+
+            This study aims to find out more about the associations humans make between sounds and shapes. You will be presented with 20 sounds
+            and asked to spontaneously sketch them using the touchpad and a web interface. You will be presented with detailed instructions
+            and a test run before the study starts. In addition, you will be asked a few questions about your persona, your musicality and your experience with
+            this study. We hope that the results will improve our knowledge of music perception and can help to develop new music retrieval systems. <br><br>
+
+            It is up to you to decide whether or not to take part. If you do decide to take part please click “Next”. You will be asked to confirm your consent
+            on the next page. <br><br>
+
+            If you have any questions or concerns about the manner in which the study was conducted please, in the first instance, contact the researcher
+            responsible for the study Sebastian L&ouml;bbers - <b>s.lobbers@qmul.ac.uk </b>. <br>
+            If this is unsuccessful, or not appropriate, please contact the Secretary at the Queen Mary Ethics of Research Committee, Room W104,
+            Queens’ Building, Mile End Campus, Mile End Road, London, E1 4NS or <b>research-ethics@qmul.ac.uk</b>. If you have any questions relating to data protection,
+            please contact Data Protection Officer, Queens’ Building, Mile End Road, London, E1 4NS or <b>data-protection@qmul.ac.uk</b>.
+        </p>
+        <button onclick="nextContent()">Next</button>
+    </div>
+
+    <!-- Consent -->
+    <div class="content">
+        <h1>Consent</h1>
+        <p>
+            Please give your consent below after you have read the Participant Information about the research on the previous page. <br><br>
+            Title of Study: Sketching Sounds<br>
+            Queen Mary Ethics of Research Committee Ref.: QMREC2341<br><br>
+
+            Thank you for considering taking part in this research. The people organising the research must explain the project to you before you agree to take part.
+            If you have any questions arising from the Participant Information  or other  explanation already given to you, please ask the researchers before you decide whether to join in.<br>
+            <ul>
+                <li>I understand that if I decide at any other time during the research that I no longer wish to participate in this project, I can withdraw from it immediately by simply closing the page or leaving the survey.<br> </li>
+                <li>I consent to the processing of my personal information for the purposes of this research study. I understand that such information will be treated as strictly confidential and handled in accordance with the provisions of the Data Protection Act 1998.<br></li>
+                <li>I confirm to be age 18 or older.</li>
+                <li>I agree that the research project named above has been explained to me to my satisfaction and I agree to take part in the study. I have read both the notes written above and the Participant Information on the previous page about the project, and understand what the research study involves.<br></li>
+            </ul>
+        </p>
+
+        <label class="container" id="consent">
+            I confirm that I understand the points mentioned above and that I agree with them
+            <input type="radio" name="consent" form="survey" value="yes">
+            <span class="checkmark"></span>
+        </label>
+        <button onclick="nextContent()">Next</button>
+    </div>
+
+
+    <!-- Participant Information -->
+    <div class="content" id="PreSurvey">
+        <h1>Personal Information</h1>
+        <p>
+            Please enter some of your personal information below. These are required for analysing the study data. <br>
+        </p>
+        <form name="submit-to-google-sheet" method="post" enctype="text/plain" id="survey">
+
+
+            <div class="menuGroup">
+                <b>Gender</b>
+                <div class="custom-select" style="width:200px;">
+                    <select name="gender" form="survey">
+                        <option value="0">Please select</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        <option value="other">Other</option>
+                        <option value="prefernottosay">Prefer not to say</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="menuGroup">
+                <b>Age</b>
+                <div class="custom-select" style="width:200px">
+                    <select name="age" form="survey">
+                        <option value="0">Please select</option>
+                        <option value="18-25">18-25</option>
+                        <option value="26-33">26-33</option>
+                        <option value="34-41">34-41</option>
+                        <option value="42-49">42-49</option>
+                        <option value="50+">50+</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="menuGroup">
+                <b>Cultural Background</b><br>
+                <i>Please indicate which culture you feel closest to or which culture/country you grew up in</i><br>
+                <textarea form="survey" name="country" rows="1" cols="55"></textarea><br>
+            </div>
+
+
+            <div class="menuGroup">
+                <b>How much time do you spend actively listening to music per day?</b>
+                <div class="custom-select" style="width:200px">
+                    <select name="listenMusic" form="survey">
+                        <option value="0">Please select</option>
+                        <option value="1">0-15min</option>
+                        <option value="2">15-30min</option>
+                        <option value="3">30-60min</option>
+                        <option value="4">60-90min</option>
+                        <option value="5">2h</option>
+                        <option value="6">2h-3h</option>
+                        <option value="7">4h+</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="menuGroup">
+                <b>How often are you actively engaged in musical activity?</b><br>
+                <i>e.g. playing and instrument, DJing or producing music in a DAW</i>
+                <div class="custom-select" style="width:200px">
+                    <select name="makeMusic" form="survey">
+                        <option value="0">Please select</option>
+                        <option value="1">Never</option>
+                        <option value="2">Once a year or less</option>
+                        <option value="3">Multiple times a year</option>
+                        <option value="4">Once a month</option>
+                        <option value="5">Multiple times per month</option>
+                        <option value="6">Once a week</option>
+                        <option value="7">Multiple times per week</option>
+                        <option value="8">Every Day</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ------------------------------------------ -->
+            <!--Music Perception Questions based on Gold MSI-->
+            <!------------Content generated in JS------------->
+            <!-- ------------------------------------------ -->
+
+            <div class="buttonGroup" id="GoldMSI0">
+                <b class="buttonGroup"></b><br>
+                <i class="" buttonGroup"></i><br>
+                <label class="container">
+                    Completely Disagree
+                    <input type="radio" name="gold0" form="survey" value="0">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">
+                    Strongly Disagree
+                    <input type="radio" name="gold0" form="survey" value="1">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">
+                    Disagree
+                    <input type="radio" name="gold0" form="survey" value="2">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">
+                    Neither Agree nor Disagree
+                    <input type="radio" name="gold0" form="survey" value="3">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">
+                    Agree
+                    <input type="radio" name="gold0" form="survey" value="4">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">
+                    Strongly Agree
+                    <input type="radio" name="gold0" form="survey" value="5">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">
+                    Completely Agree
+                    <input type="radio" name="gold0" form="survey" value="6">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </form>
+        <button onclick="nextContent()">Next</button>
+    </div>
+
+    <!--  Introduction + Sketching Sounds -->
+    <div class="content">
+
+        <h1 class="instruction">Instructions</h1>
+        <p class="instruction"> In the next step you will be asked to draw 20 sounds using the provided interface.
+        Please read the instructions before you click "Start"</p>
+        <ul class="instruction">
+            <li>
+                The black square under these instructions marks your drawing canvas. You can draw white lines on it by holding down
+                the mouse button and dragging the mouse indicator over the canvas. Please try draw something on the canvas now
+            </li>
+            <li>
+                After you click "Start" you will hear a sound. Your task is to draw whatever you think represents this sound best.
+                The sound will loop automatically but you can pause it if you like.
+            </li>
+            <li>
+                When you completed the drawing click "Next" and the next sound will start playing automatically. Your task is again to draw the sound.
+                Repeat this until you are directed to the next page (there are 20 sounds in total). Please put on your headphones now.
+            </li>
+        </ul>
+
+        <h1 class="study">Study</h1>
+        <p id="soundnumber" class="study">Sound 1</p>
+        <!-- LOAD AUDIO FILE -->
+        <audio controls id="audio" class="study">
+            <source src="Audio/sound1.mp3" type="audio/mp3" id="audioSource">
+            Your browser does not support this audio element!
+        </audio>
+
+        <div id="sketchHolder">
+            <!-- POSITION OF THE P5.JS SKETCH -->
+        </div>
+        <div><button onclick="startStudy()" id="soundButton">Start</button></div>
+    </div>
+
+    <!--  Debrief Survey -->
+    <div class="content">
+    <h1>Submission</h1>
+    <p>Thank you for completing the study. Please click 'submit' to disclose your study data. <br>
+        You will be asked a few more informal questions about the experiment afterwards.</p>
+
+        <div><button onclick="submit()">Submit</button></div>
+    </div>
+
+    <!--  GoodBye -->
+    <div class="content">
+        <h1>Thank you</h1>
+    </div>
+</body>
+</html>
