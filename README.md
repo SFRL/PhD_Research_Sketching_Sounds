@@ -6,13 +6,13 @@ So far I have completed one study on how people visually sketch sounds with a si
 
 ## Study 1 part 1
 
-The study can be found [here](Study_setup/index.html)
+The study can be found [here](https://sfrl.github.io/seeingsoundshearingshapes/Study_setup/)
 
 The Jupyter notebook containing the data anaylsis can be found [here](study_analysis_concise.ipynb)
 
-The sketches have been compiled into an interactive gallery that can be explored [here](SSHS_website/SSHS_gallery/index.html)
+The sketches have been compiled into an interactive gallery that can be explored [here](https://sfrl.github.io/seeingsoundshearingshapes/SSHS_website/SSHS_gallery/)
 
 ## Study 1 part 2 
 
-The design for study 1 part 2 can be found [here](SSHS_website/SSHS_game/index.html)
+The design for study 1 part 2 can be found [here](https://sfrl.github.io/seeingsoundshearingshapes/SSHS_website/SSHS_game/)
 
