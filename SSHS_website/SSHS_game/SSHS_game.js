@@ -30,6 +30,7 @@ let allPaths = [];
 
 //Sound 
 let sounds = [];
+let sound; //Sound object
 
 //Font 
 let font;
@@ -77,7 +78,10 @@ let selectStartTime = 0;
 let evalTime = 2000; //This is how long the evaluation stage lasts
 let evalStartTime = 0;
 
-//Sequence timing 
+//Sequence timing
+let loadingComplete = false; //True when all content has been loaded
+let loadingCount = 0; //Increment when content has been loaded
+let numberOfContent = 5; //How many different content files have to be loaded
 let welcomeFlag = true;
 let nextRound = false;
 let round = -1;
@@ -88,20 +92,23 @@ let instance = -1; //The instance of the same sound playing, in one round the sa
 let artistNumbers = [3, 11, 15, 19, 21, 25, 29, 33, 39, 43, 55]; //Artists who only drew abstract representations, odd numbers indicate the second round of sketches
 let soundNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; //All sound indices
 
-
-// Put any asynchronous data loading in preload to complete before "setup" is run
-function preload() {
-    //Load drawing data
-    drawingData = loadJSON("../data/drawing_data.json");
+function loadingData() {
+    //Loading JSON data
+    drawingData = loadJSON("../data/drawing_data.json",incremementLoadingCount);
+    font = loadJSON('../data/font.json',incremementLoadingCount);
+    boxes = loadJSON('../data/boxes.json',incremementLoadingCount);
+    arrows = loadJSON('../data/arrows.json',incremementLoadingCount);
+    symbols = loadJSON('../data/symbols.json',incremementLoadingCount);
 
     //Load sounds
+    /*
     for (let i = 0; i < 10; i++) {
         sounds.push(new Audio('../audio/sound' + str(i + 1) + '.mp3'));
-    }
-    font = loadJSON('../data/font.json');
-    boxes = loadJSON('../data/boxes.json');
-    arrows = loadJSON('../data/arrows.json');
-    symbols = loadJSON('../data/symbols.json');
+    } */
+}
+
+function incremementLoadingCount() {
+    loadingCount++;
 }
 
 //////////////////////////////////////////////
@@ -112,15 +119,15 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
     frameRate(fr);
+
     //Randomise orders
     artistNumbers = shuffleArray(artistNumbers);
     artistNumbers.pop(); //Remove last entry because there is only room for 10 artists
     soundNumbers = shuffleArray(soundNumbers);
-
-    //print(artistNumbers);
-    //print(soundNumbers);
+  
     sizing();
-    preRender();
+    loadingData();
+    //preRender();
 }
 
 function sizing() {
@@ -168,7 +175,10 @@ function preRender() {
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
     sizing();
-    preRender();
+    if (loadingComplete) { //Pre-render can only run if all data has been loaded
+        preRender();
+    }
+    
 }
 
 //////////////////////////////////////////////
@@ -180,103 +190,122 @@ function draw() {
     background(bg);
     translate(totalOffsetX, totalOffsetY);
 
-    //Save cursor position for this cycle but only if mouse has not been clicked, in that case cursor position is updated in the mouseClicked function
-    if (!clicked) {
-        cursorX = mouseX;
-        cursorY = mouseY;
+    if (!loadingComplete) {
+        text('loading...', 0, 0);
+        if (loadingCount >= numberOfContent) {
+            loadingComplete = true;
+            preRender();
+        }
     }
+    else {
 
-    // Update time since sketch started drawing
-    let currentDrawTime = -1;
-    if (round < 0) {
-        //Welcome stage
-        for (let i = 0; i <= 4 * welcomeInstance; i++) { //Factor 4 because I decided to only have 2 welcome instance (0 and 1)
-            showWelcomeText(3 * millis(), i);
+        //Save cursor position for this cycle but only if mouse has not been clicked, in that case cursor position is updated in the mouseClicked function
+        if (!clicked) {
+            cursorX = mouseX;
+            cursorY = mouseY;
         }
-        //Display arrows and boxes
-        for (let i = 0; i < 4; i++) {
-            let bold = false;
-            if (welcomeInstance > 0) {
-                displayArrows(i, bold);
-                displayBoxes(i);
-                displayGuideText();
-            } else if (welcomeInstance == 0) {
-                displayArrows(1, bold);
-                displayBoxes(0);
+
+        // Update time since sketch started drawing
+        let currentDrawTime = -1;
+        if (round < 0) {
+            //Welcome stage
+            for (let i = 0; i <= 4 * welcomeInstance; i++) { //Factor 4 because I decided to only have 2 welcome instance (0 and 1)
+                showWelcomeText(3 * millis(), i);
             }
-        }
-    } else if (round < 10) {
-        //Game stage    
-        if (nextRound) {
-            currentDrawTime = -1; // -1 is used to disregard time
-            if (round < 10) { //The game is played over 10 rounds
-                newRound(artistNumbers[round], soundNumbers[round]);
-            }
-            nextRound = false;
-        } else if (instance < totalInstances) { //This is the drawing stage where a participant looks at all the sketches being drawn after the other
-            currentDrawTime = millis() - drawStartTime;
-            newInstance = getInstance(currentDrawTime); //Check if one drawing time cycle has passed which means that one sketch has been completed
-            if (newInstance > instance) { //If a drawing time cycle has passed, go into this loop
-                if (newInstance < totalInstances) { //Play the same sound for every new sketch that's being drawn, there are 4 sketches in total
-                    sounds[soundNumbers[round]].play();
+            //Display arrows and boxes
+            for (let i = 0; i < 4; i++) {
+                let bold = false;
+                if (welcomeInstance > 0) {
+                    displayArrows(i, bold);
+                    displayBoxes(i);
+                    displayGuideText();
+                } else if (welcomeInstance == 0) {
+                    displayArrows(1, bold);
+                    displayBoxes(0);
                 }
-                instance = newInstance; //Save the new instance number
             }
-        } else if (instance == totalInstances) { //This is the selection phase where the participant choses a sketch
-            /* uncomment if question mark should be displayed
-             if (selectStartTime == 0) {
-             selectStartTime = millis();
-             }
-             //Display a question mark in the middle
-             let selectCurrentTime = millis() - selectStartTime;
-             write('?', 8*selectCurrentTime, strength, colour, boxX + arrowX, boxY + arrowY, arrowScaler);
-             */
-        } else if (instance > totalInstances) { //This is the stage where the participants sees if their choice was correct
-            //currentDrawTime = -1; //
-            sounds[soundNumbers[round]].pause(); //Stop any sounds that are still playing
+        } else if (round < 10) {
+            //Game stage    
+            if (nextRound) {
+                currentDrawTime = -1; // -1 is used to disregard time
+                if (round < 10) { //The game is played over 10 rounds
+                    newRound(artistNumbers[round], soundNumbers[round]);
+                }
+                nextRound = false;
+            } else if (instance < totalInstances) { //This is the drawing stage where a participant looks at all the sketches being drawn after the other
+                currentDrawTime = millis() - drawStartTime;
+                newInstance = getInstance(currentDrawTime); //Check if one drawing time cycle has passed which means that one sketch has been completed
+                //////////////////
+                /*
+                This bunch of confusing code was written to have sketches be drawn one after the other,
+                but turned out it doesn't look great. It's still here in case someone wants to back to it
+                */
+                //////////////////
+                if (newInstance > instance) { //If a drawing time cycle has passed, go into this loop
+                    if (newInstance < totalInstances) { //Play the same sound for every new sketch that's being drawn, there are 4 sketches in total
+                        //sounds[soundNumbers[round]].play();
 
-            if (evalStartTime == 0) {
-                evalStartTime = millis();
-            }
-            let currentEvalTime = millis() - evalStartTime;
+                        sound.play();
+                    }
+                    instance = newInstance; //Save the new instance number
+                }
+            } else if (instance == totalInstances) { //This is the selection phase where the participant choses a sketch
+                /* uncomment if question mark should be displayed
+                 if (selectStartTime == 0) {
+                 selectStartTime = millis();
+                 }
+                 //Display a question mark in the middle
+                 let selectCurrentTime = millis() - selectStartTime;
+                 write('?', 8*selectCurrentTime, strength, colour, boxX + arrowX, boxY + arrowY, arrowScaler);
+                 */
+            } else if (instance > totalInstances) { //This is the stage where the participants sees if their choice was correct
+                //currentDrawTime = -1; //
 
-            if (correctAnswer) {
-                drawSketch(symbols[2], 8 * currentEvalTime, strength, colour, boxX + arrowX, boxY + arrowY, arrowScaler);
-            } else {
-                write('X', 8 * currentEvalTime, strength, colour, boxX + arrowX, boxY + arrowY, arrowScaler);
-            }
+                sound.pause(); //Stop any sounds that are still playing
 
-            if (evalTime < currentEvalTime) {
-                nextRound = true;
-                round++;
+                if (evalStartTime == 0) {
+                    evalStartTime = millis();
+                }
+                let currentEvalTime = millis() - evalStartTime;
+
                 if (correctAnswer) {
-                    score++;
+                    drawSketch(symbols[2], 8 * currentEvalTime, strength, colour, boxX + arrowX, boxY + arrowY, arrowScaler);
+                } else {
+                    write('X', 8 * currentEvalTime, strength, colour, boxX + arrowX, boxY + arrowY, arrowScaler);
+                }
+
+                if (evalTime < currentEvalTime) {
+                    nextRound = true;
+                    round++;
+                    if (correctAnswer) {
+                        score++;
+                    }
                 }
             }
+
+            //Display arrows, sketches and boxes
+            for (let i = 0; i < 4; i++) {
+                let bold = false;
+                if (i == selectedIndex) {
+                    bold = true;
+                }
+                if (i < ((instance + 1) * (4 / totalInstances))) {
+                    displayArrows(i, bold);
+                    displaySketch(allPaths[i], currentDrawTime - Math.floor(i * (totalInstances / 4)) * drawingTime, strength, colour, boxScaler, i);
+                } else if (instance < 0) {
+                    displayArrows(i, bold); // to avoid the arrows shortly disappearing before the next round
+                }
+                displayBoxes(i);
+            }
+            displayGuideText();
+        } else if (round >= 10) {
+            //End stage
+            displayEndText();
         }
 
-        //Display arrows, sketches and boxes
-        for (let i = 0; i < 4; i++) {
-            let bold = false;
-            if (i == selectedIndex) {
-                bold = true;
-            }
-            if (i < ((instance + 1) * (4 / totalInstances))) {
-                displayArrows(i, bold);
-                displaySketch(allPaths[i], currentDrawTime - Math.floor(i * (totalInstances / 4)) * drawingTime, strength, colour, boxScaler, i);
-            } else if (instance < 0) {
-                displayArrows(i, bold); // to avoid the arrows shortly disappearing before the next round
-            }
-            displayBoxes(i);
-        }
-        displayGuideText();
-    } else if (round >= 10) {
-        //End stage
-        displayEndText();
+        //Reset mouse clicked flag
+        clicked = false;
     }
-
-    //Reset mouse clicked flag
-    clicked = false;
 }
 //////////////////////////////////////////////
 /* --------------------------------------
@@ -317,6 +346,8 @@ function evaluateSelection(selected) {
 function newRound(artistNumber, playSound) {
     allPaths = []; //Reset allPath array
     resetTimes();
+
+    sound = new Audio('../audio/sound' + str(playSound + 1) + '.mp3'); 
 
     soundOptions = getSoundNumbers(playSound);
 
@@ -446,7 +477,7 @@ function displayArrows(boxNumber, bold) {
     }
 }
 
-// Draw sketches 
+// Draw sketches
 function displaySketch(data, time, strength, colour, scale, boxNumber) {
     //Display sketch 
     let pos = getPosition(boxNumber);
@@ -578,9 +609,9 @@ function displayEndText() {
  -------------------------------------- */
 function replay(playSound) {
     resetTimes();
-    sounds[playSound].pause(); //Stop sound
-    sounds[playSound].currentTime = 0; //Reset sound
-    sounds[playSound].play(); //Play sound
+    sound.pause(); //Stop sound
+    sound.currentTime = 0; //Reset sound
+    sound.play(); //Play sound
 }
 
 /* --------------------------------------
