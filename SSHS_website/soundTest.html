@@ -18,6 +18,9 @@
 
 <body>
     <script>
+        let id = setInterval(frame, 5);
+        let play = false;
+
         let sound = document.createElement("audio");
         sound.src = 'audio/sound1.mp3';
 
@@ -27,13 +30,30 @@
         newDIV.innerHTML = "Play";
         document.body.appendChild(newDIV);
 
-        let id = setInterval(frame, 5);
 
+        newDIV = document.createElement("DIV");
+        newDIV.className = "playbutton";
+        newDIV.addEventListener("click", playWorkaround);
+        newDIV.innerHTML = "Play through looped function";
+        document.body.appendChild(newDIV);
+
+        function playWorkaround() {
+            sound.pause();
+            
+            sound.muted = true;
+            sound.play();
+            play = true;
+        }
+ 
         function frame() {
-            if (sound.paused) {
-                sound.play();
+            if (play) {
+                sound.currentTime = 1;
+                console.log(sound.currentTime);   
+                sound.muted = false;
+                play = false;
             }
         }
+
     </script>
 </body>
 </html>
