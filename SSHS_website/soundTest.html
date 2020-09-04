@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Sound test</title>
+</head>
+
+
+<style>
+    .playbutton {
+        width: 100px;
+        height: 50px;
+        border: 2px solid black;
+        background-color: grey;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <script>
+        let sound = document.createElement("audio");
+        sound.src = 'audio/sound1.mp3';
+
+        let newDIV = document.createElement("DIV");
+        newDIV.className = "playbutton";
+        newDIV.addEventListener("click", function () { sound.play() });
+        newDIV.innerHTML = "Play";
+        document.body.appendChild(newDIV);
+
+        let id = setInterval(frame, 5);
+
+        function frame() {
+            if (sound.paused) {
+                sound.play();
+            }
+        }
+    </script>
+</body>
+</html>
