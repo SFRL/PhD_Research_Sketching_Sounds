@@ -1,0 +1,65 @@
+body {
+    background-color: white;
+    margin: 0;
+    color: black;
+    font-family: monospace;
+}
+
+#header {
+    margin-bottom: 10px;
+    background-color: inherit;
+    position: -webkit-sticky;
+    position: sticky;
+    padding: 5px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#header > * {
+    display: inline-block;
+}
+
+.multiSelection {
+    border: 2px solid black;
+    max-width: 400px;
+    display: inline-block;
+}
+
+
+#sketchPanel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: scroll;
+}
+
+.ptColumn {
+    width: 400px;
+}
+
+.sketchFigure {
+    width: inherit;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0;
+}
+
+.sketchImage {
+    position: relative;
+    width: inherit;
+    left: 0;
+    top: 0;
+    border: 1px solid white;
+    z-Index: -1;
+}
+
+.xLabel {
+    text-align: center;
+}
+
+.ylabel {
+    writing-mode: vertical-lr;
+}
+

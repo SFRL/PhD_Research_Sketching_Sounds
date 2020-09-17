@@ -1,0 +1,40 @@
+<head>
+    <title>Interactive Gallery</title>
+    <script src="dynamic.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="createNavigation()">
+    <div id="header">
+        <div id="inputs">
+            <div id="ptSelection" class="multiSelection">
+                <p>Select Participants</p>
+                <button onclick="selectAll(true,'ptCheckbox')">Select all</button>
+                <button onclick="selectAll(false,'ptCheckbox')">Clear all</button>
+            </div>
+            <div id="sndSelection" class="multiSelection">
+                <p>Select Sounds</p>
+                <button onclick="selectAll(true,'sndCheckbox')">Select all</button>
+                <button onclick="selectAll(false,'sndCheckbox')">Clear all</button>
+            </div>
+            <div id="iterSelection" class="multiSelection">
+                <p>Select Iteration</p>
+                <label for="iterCheckbox1">A</label> 
+                <input type="checkbox" class="iterCheckbox" id="iterCheckbox1" checked="true" onchange="showSketches()">
+                <label for="iterCheckbox2">B</label>
+                <input type="checkbox" class="iterCheckbox" id="iterCheckbox2" onchange="showSketches()">
+            </div>
+            <input type="range" min="10" max="100" value="50" class="slider" id="scaleSlider" oninput="scaleSketches(this.value)">
+            <button onclick="setColour()">Invert Colour</button>
+        </div>
+        <div id="sketchInfo">
+            <p id="ptInfo">Participant: </p>
+            <p id="sndInfo">Sound: </p>
+            <p id="iterInfo">Iteration: </p>
+        </div>
+    </div>
+
+    <div id="sketchPanel">
+
+    </div>
+</body>
