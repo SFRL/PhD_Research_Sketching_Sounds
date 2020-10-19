@@ -6,49 +6,41 @@ body {
 }
 
 #header {
-    margin-bottom: 10px;
-    background-color: inherit;
-    position: -webkit-sticky;
-    position: sticky;
+    display: table-row;
     padding: 5px;
     width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 2;
+    border-bottom: 5px double black;
 }
 
-#header > * {
-    display: inline-block;
-}
-
-.multiSelection {
-    border: 2px solid black;
-    max-width: 400px;
-    display: inline-block;
-}
-
-
-#sketchPanel {
+#page {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#table-container {
     overflow: scroll;
 }
 
-.ptColumn {
-    width: 400px;
+.multiSelection {
+    display: table-cell;
+    border: 2px solid black;
+    max-width: 400px;
+    padding: 5px;
+}
+
+button {
+    cursor: pointer;
 }
 
 .sketchFigure {
-    width: inherit;
-    display: flex;
-    flex-wrap: nowrap;
     margin: 0;
+    padding: 0;
 }
 
 .sketchImage {
-    position: relative;
     width: inherit;
+    position: relative;
     left: 0;
     top: 0;
     border: 1px solid white;
@@ -56,10 +48,16 @@ body {
 }
 
 .xLabel {
+    width: 75px;
+    word-wrap: break-word;
+    word-break: break-all; 
     text-align: center;
 }
 
-.ylabel {
-    writing-mode: vertical-lr;
+.yLabel {
+    max-width: 2rem;
+    height: 75px;
+    transform: rotate(-90deg);
+    
 }
 

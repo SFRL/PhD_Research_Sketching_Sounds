@@ -10,7 +10,14 @@ function createNavigation() {
         let label = document.createElement("LABEL");
         let checkbox = document.createElement("INPUT");
         label.for = "ptCheckbox" + String(i + 1);
-        label.innerHTML = String(i + 1);
+        let labelText;
+        if (i>8) {
+            labelText = String(i+1);
+        }
+        else {
+            labelText = '0' + String(i+1);
+        }
+        label.innerHTML = labelText;
         checkbox.type = "checkbox";
         checkbox.id = "ptCheckbox" + String(i + 1);
         checkbox.className = "ptCheckbox";
@@ -25,7 +32,14 @@ function createNavigation() {
         let label = document.createElement("LABEL");
         let checkbox = document.createElement("INPUT");
         label.for = "sndCheckbox" + String(i + 1);
-        label.innerHTML = String(i + 1);
+        let labelText;
+        if (i>8) {
+            labelText = String(i+1);
+        }
+        else {
+            labelText = '0' + String(i+1);
+        }
+        label.innerHTML = labelText;
         checkbox.type = "checkbox";
         checkbox.id = "sndCheckbox" + String(i + 1);
         checkbox.className = "sndCheckbox";
@@ -47,48 +61,62 @@ function showSketches() {
     let snd = getCheckboxValues("sndCheckbox");
     let iter = getCheckboxValues("iterCheckbox");
 
-    for (let i = 0; i < pt.length; i++) {
+    //Get the width of each sketch
+    let width = 7.5*document.getElementById("scaleSlider").value;
 
-        for (let j = 0; j < iter.length; j++) {
-            let ptColumn = document.createElement("div");
-            let scaler = document.getElementById("scaleSlider").value;
-            ptColumn.className = "ptColumn";
-            ptColumn.style.width = 750 / 100 * scaler;
+    //Create x label with participant numbers on top of table
+    let xLabel = document.createElement("tr");
+    //Start with a cell in the top left corner, it will be left empty
+    let cornerCell = document.createElement('th');
+    xLabel.appendChild(cornerCell);
+    //Now fill the rest of the cells with the participant numbers
+    for (let i=0; i<pt.length; i++) {
+        for (let j=0; j<iter.length; j++) {
+            let header = document.createElement('th');
+            header.style.maxWidth = width;
+            header.innerHTML = 'Part.' + String(pt[i]) + iterName[j];
+            xLabel.appendChild(header);
+        }    
+    }
+    sketchPanel.appendChild(xLabel);
+    for (let i = 0; i<snd.length; i++) {
+        //Create new table row
+        let row = document.createElement("tr");
 
-            let xLabel = document.createElement("div");
-            xLabel.className = "xLabel";
-            xLabel.innerHTML = "Participant " + pt[i] + iterName[iter[j] - 1];
-            ptColumn.appendChild(xLabel);
+        //Create y label with sound names in the beginning of each row
+        let yLabel = document.createElement('th');
+        yLabel.className = "yLabel";
+        yLabel.innerHTML = soundNames[snd[i] - 1];
+        row.appendChild(yLabel);
+        
+        for (let j = 0; j < pt.length; j++) {
+            for (let k = 0; k<iter.length; k++) {
 
-            for (let k = 0; k < snd.length; k++) {
-                //Display new sketch images
-                let sketchFigure = document.createElement('div');
-                sketchFigure.className = "sketchFigure";
-                sketchFigure.id = "pt:" + pt[k] + "snd:" + snd[k] + "iter:" + iter[j];
-                sketchFigure.onmouseover = function () { showSketchInfo(this.id) };
-                let sketchImage = document.createElement("img");
-                let src = 'Sketches/Participant' + pt[i] + '/shape' + snd[k] + iterName[iter[j] - 1] + '.png';
-                sketchImage.src = src;
-                sketchImage.className = "sketchImage";
+                //Create new table cell
+                let cell = document.createElement("td");
+                cell.className = "sketchFigure";
+                cell.id = "pt:" + pt[j] + "snd:" + snd[i] + "iter:" + iter[k];
+                cell.style.width = width; //table cell cannot be wider than the image, don't grow cell if the labels are bigger
+                cell.title = 'Participant: ' + pt[j] + iterName[iter[k]-1] + '\nSound: ' + snd[i] + ' (' + soundNames[snd[i]-1] + ')';
+
+                //Create new image element that will display a sketch
+                let img = document.createElement("img");
+                let src = 'Sketches/Participant' + pt[j] + '/shape' + snd[i] + iterName[iter[k] - 1] + '.png'; 
+                img.src = src;
+                img.className = "sketchImage";
                 let filter = "invert(0%)";
                 if (invertColour) {
                     filter = "invert(100%)";
                 }
-                sketchImage.style.filter = filter;
+                img.style.filter = filter;
 
-                //Create yLabels in first column
-                if (i == 0 && j == 0) {
-                    let yLabel = document.createElement("div");
-                    yLabel.className = "yLabel";
-                    yLabel.innerHTML = soundNames[snd[k] - 1];
-                    sketchFigure.appendChild(yLabel);
-                }
-
-                sketchFigure.appendChild(sketchImage);
-                ptColumn.appendChild(sketchFigure);
+                //Append image to cell and cell to row
+                cell.appendChild(img);
+                row.appendChild(cell);
             }
-            document.getElementById("sketchPanel").appendChild(ptColumn);
         }
+        //Append row to table
+        sketchPanel.appendChild(row);
     }
 }
 
@@ -119,17 +147,21 @@ function selectAll(select, className) {
 }
 
 function scaleSketches(scaler) {
-    let ptColumns = document.getElementsByClassName("ptColumn");
-    for (let i = 0; i < ptColumns.length; i++) {
-        ptColumns[i].style.width = 750 / 100 * scaler;
+    let cell = document.getElementsByTagName("td");
+    let width = 7.5 * scaler;
+    //Re-scale cells with images
+    for (let i = 0; i < cell.length; i++) {
+        cell[i].style.width = width;
     }
-}
-
-function showSketchInfo(id) {
-    //Parse id 
-    let info = id.match(/\d+/g);
-    document.getElementById("ptInfo").innerHTML = "Participant: " + info[0];
-    document.getElementById("sndInfo").innerHTML = "Sound: " + info[1];
+    //Rescale labels
+    let xLabel = document.getElementsByClassName("xLabel");
+    let yLabel = document.getElementsByClassName("yLabel");
+    for (let i=0; i < xLabel.length; i++) {
+        xLabel[i].style.maxWidth = width;
+    }
+    for (let i=0; i < yLabel.length; i++) {
+        yLabel[i].style.maxHeight = width;
+    }
 }
 
 function setColour() {
