@@ -47,6 +47,19 @@ button {
     z-Index: -1;
 }
 
+.checkbox-container {
+    display: inline-block;
+}
+
+label {
+    display: block;
+    text-align: center;
+}
+
+input {
+    display: block;
+}
+
 .xLabel {
     width: 75px;
     word-wrap: break-word;

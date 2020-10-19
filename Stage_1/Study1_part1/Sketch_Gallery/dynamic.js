@@ -1,15 +1,18 @@
 let iterName = ["", "B"]; //Filename suffix for different iteration
 let soundNames = ['Crackles', 'Telephonic', 'Strings', 'String Grains', 'Subbass', 'Noise', 'Piano', 'Impact', 'Processed Guitar', 'Electric Guitar']; //Names of the sound files
-let invertColour = false;
+let invertColour = true;
 
 
 function createNavigation() {
     //Create selection matrix for 28 participants
     let ptSelection = document.getElementById("ptSelection");
     for (let i = 0; i < 28; i++) {
+        let container = document.createElement('DIV');
         let label = document.createElement("LABEL");
         let checkbox = document.createElement("INPUT");
-        label.for = "ptCheckbox" + String(i + 1);
+
+        container.className = "checkbox-container";
+
         let labelText;
         if (i>8) {
             labelText = String(i+1);
@@ -17,20 +20,27 @@ function createNavigation() {
         else {
             labelText = '0' + String(i+1);
         }
+        label.for = "ptCheckbox" + String(i+1);
         label.innerHTML = labelText;
         checkbox.type = "checkbox";
         checkbox.id = "ptCheckbox" + String(i + 1);
         checkbox.className = "ptCheckbox";
+        checkbox.checked = true;
         checkbox.onchange = function () { showSketches() };
-        ptSelection.appendChild(checkbox);
-        ptSelection.appendChild(label);
+        container.appendChild(label);
+        container.appendChild(checkbox);
+        ptSelection.appendChild(container);
     }
 
     //Create selection matrix for 10 sounds
     let sndSelection = document.getElementById("sndSelection");
     for (let i = 0; i < 10; i++) {
+        let container = document.createElement('DIV');
         let label = document.createElement("LABEL");
         let checkbox = document.createElement("INPUT");
+
+        container.className = "checkbox-container";
+
         label.for = "sndCheckbox" + String(i + 1);
         let labelText;
         if (i>8) {
@@ -43,10 +53,15 @@ function createNavigation() {
         checkbox.type = "checkbox";
         checkbox.id = "sndCheckbox" + String(i + 1);
         checkbox.className = "sndCheckbox";
+        checkbox.checked = true;
         checkbox.onchange = function () { showSketches() };
-        sndSelection.appendChild(checkbox);
-        sndSelection.appendChild(label);
+        container.appendChild(label);
+        container.appendChild(checkbox);
+
+        sndSelection.appendChild(container);
     }
+
+    showSketches();
 }
 
 function showSketches() {

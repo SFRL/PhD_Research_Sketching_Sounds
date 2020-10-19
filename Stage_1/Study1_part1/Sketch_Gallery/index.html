@@ -21,14 +21,18 @@
                 </div>
                 <div id="iterSelection" class="multiSelection">
                     <p>Select Iteration</p>
-                    <label for="iterCheckbox1">A</label> 
-                    <input type="checkbox" class="iterCheckbox" id="iterCheckbox1" checked="true" onchange="showSketches()">
-                    <label for="iterCheckbox2">B</label>
-                    <input type="checkbox" class="iterCheckbox" id="iterCheckbox2" onchange="showSketches()">
+                    <div class="checkbox-container">
+                        <label for="iterCheckbox1">A</label> 
+                        <input type="checkbox" class="iterCheckbox" id="iterCheckbox1" checked="true" onchange="showSketches()">
+                    </div>
+                    <div class="checkbox-container">
+                        <label for="iterCheckbox2">B</label>
+                        <input type="checkbox" class="iterCheckbox" id="iterCheckbox2" checked="true" onchange="showSketches()">
+                    </div>
                 </div>
                 <div class="multiSelection">
                     <p> Zoom </p>
-                    <input type="range" min="10" max="100" value="50" class="slider" id="scaleSlider" oninput="scaleSketches(this.value)">
+                    <input type="range" min="10" max="100" value="10" class="slider" id="scaleSlider" oninput="scaleSketches(this.value)">
                 </div>
                 <div class="multiSelection">
                     <p> Invert sketch colour </p>
