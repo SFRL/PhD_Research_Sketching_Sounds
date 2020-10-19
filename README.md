@@ -5,7 +5,7 @@ This is the repository related to my PhD research at the Centre for Digital Musi
 ## Abstract
 This research is about the use of sound-shape associations in a music practice context. Humans are surpsingly good at creating mental images of sound, however current tools rarely accommodate a perception-centered production approach that allows for a straightforward realistion of sound ideas. Research has found commonalities in how humans describe sound across modalities. This research focuses on the crossmodal associations between sound and visual shapes. This project investigates the ways in which a visual sketch input can be used to drive sound synthesis and aims to build a functioning sketch-based sound synthesiser. The project is based in the field of music psychology and music computing but also touches on the fields of interaction design, human-computer interaction and musical interfaces.
 
-For a quick overview please have a look at this [website](https://sfrl.github.io/PhD_Research_Sketching_Sounds/Webpage/)
+For a quick overview please have a look at this [website](https://sfrl.github.io/PhD_Research_Sketching_Sounds/Webpage/).
 
 ## Study 1 part 1
 
