@@ -49,6 +49,7 @@ button {
 
 .checkbox-container {
     display: inline-block;
+    padding: 0 0.3rem;
 }
 
 label {
