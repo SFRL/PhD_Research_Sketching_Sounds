@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body onload="createNavigation()">
+<body onload="createNavigation(),createAudioPlayers()">
     <div id="page">
         <div id="header">
                 <div id="ptSelection" class="multiSelection">
@@ -35,9 +35,28 @@
                     <input type="range" min="10" max="100" value="10" class="slider" id="scaleSlider" oninput="scaleSketches(this.value)">
                 </div>
                 <div class="multiSelection">
-                    <p> Invert sketch colour </p>
+                    <p> Invert sketch <br> colour </p>
                     <button onclick="setColour()" class="multiSelection">Click to invert!</button>
                 </div>
+                <div class="multiSelection">
+                    <p> Sound File <br> Player</p>
+                    <button onclick="showWindow('sound-sidebar','block')" class="multiSelection">Open</button>
+                </div>
+                <div class="multiSelection">
+                    <p>Hide <br> Toolbar</p>
+                    <button onclick="showWindow('header','none'),showWindow('minimised','block')" class="multiSelection">Hide</button>
+                </div>
+
+        </div>
+
+        <div id="minimised" style="display: none">
+            <button onclick="showWindow('header','table-row'),showWindow('minimised','none')">Show Toolbar</button>
+        </div>
+
+        <div id="sound-sidebar" >
+        <p id="close-sidebar" onclick="showWindow('sound-sidebar','none')">X</p>
+            <h1>Sound Files</h1>
+
 
         </div>
 

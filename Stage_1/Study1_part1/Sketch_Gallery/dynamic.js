@@ -64,6 +64,30 @@ function createNavigation() {
     showSketches();
 }
 
+function createAudioPlayers() {
+    let soundbar = document.getElementById("sound-sidebar");
+
+
+    for (let i=0; i<soundNames.length; i++) {
+        let audioTag = document.createElement('AUDIO');
+        audioTag.controls = "controls";
+
+        let label = document.createElement('P');
+        label.innerHTML = "Sound " + String(i+1) + " - " + soundNames[i];
+        let audioPlayer = document.createElement('SOURCE');
+        audioPlayer.src = "../Study_setup/Audio/sound" + String(i+1) + ".mp3";
+        audioPlayer.type = "audio/mp3";
+        audioTag.appendChild(audioPlayer);
+        soundbar.appendChild(label);
+        soundbar.appendChild(audioTag);
+    }
+
+    // THis is just hear so that the last audio element does not get cut off
+    let end = document.createElement('P');
+    end.style.height = "10px";
+    soundbar.appendChild(end);
+}
+
 function showSketches() {
     //Delete sketches currently displayed
     let sketchPanel = document.getElementById("sketchPanel");
@@ -189,4 +213,10 @@ function setColour() {
     for (let i = 0; i < images.length; i++) {
         images[i].style.filter = filter;
     }
+}
+
+
+function showWindow(id,display) {
+    let element = document.getElementById(id);
+    element.style.display = display;
 }

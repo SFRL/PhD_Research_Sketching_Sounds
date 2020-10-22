@@ -22,6 +22,33 @@ body {
     overflow: scroll;
 }
 
+#sound-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    padding: 0 50px;
+    background-color: grey;
+    border-left: 5px double black;
+    opacity: 0.95;
+    overflow-y: scroll;
+}
+
+#close-sidebar {
+    font-size: 2rem;
+    font-style: bold;
+    position: absolute;
+    right: 25px;
+    top: -25px;
+}
+
+#close-sidebar:hover {
+    cursor: pointer;
+    color: darkgrey;
+}
+
 .multiSelection {
     display: table-cell;
     border: 2px solid black;
