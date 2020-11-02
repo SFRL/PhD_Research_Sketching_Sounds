@@ -7,10 +7,10 @@ Humans are surprisingly good at creating mental images of sound, however current
 
 For a quick overview, please have a look at this [website](https://sfrl.github.io/PhD_Research_Sketching_Sounds/Webpage/).
 
-## Study 1 part 1
+## Study 1.1 - Sketching Sounds: An exploratory study on sound-shape associations 
 
 ### Introduction
-This study aims to find out how participants represent different sounds visually using a simple digital drawing interface. 28 participants were presented with 10 different sounds and where asked to draw whatever they believe represented the sound best.
+This study aims to discover how participants represent different sounds visually using a simple digital drawing interface. 28 participants were presented with 10 different sounds and were asked to draw whatever they believe represented the sound best. Sounds were chosen to represent different timbral characteristics (brightness, noisiness, warmth etc.) and sources (synthesisers, acoustic instruments and abstract textures). Each of the 10 sounds was repeated during a study run, leading to a total of 20 sketches per participant.
 
 ### Results
 The results show that the participants' sketches show some commonalities. While some participants use figurative images (e.g. a piano or a cello) to describe a sound, most chose abstract representations. Objective features like corner or curve points were extracted from these abstract sketches to find possible correlations with audio features. The results showed correlations that align with existing body of sound-shape research.
@@ -21,9 +21,9 @@ The study setup can be found [here](https://sfrl.github.io/PhD_Research_Sketchin
 
 The Jupyter notebook containing the data analysis can be found [here](https://github.com/SFRL/PhD_Research_Sketching_Sounds/blob/master/Stage_1/Study1_part1/analysis.ipynb).
 
-The sketches have been compiled into an interactive gallery that can be explored [here](https://sfrl.github.io/PhD_Research_Sketching_Sounds/Stage_1/Study1_part1/Sketch_Gallery/).
+The sketches have been compiled into an interactive gallery, including the sounds, that can be explored [here](https://sfrl.github.io/PhD_Research_Sketching_Sounds/Stage_1/Study1_part1/Sketch_Gallery/).
 
-## Study 1 part 2
+## Study 1.2 - Seeing Sounds, Hearing Shapes
 
 ### Introduction
 This study takes abstract sketches from study 1 part 1 and presents them to participants in a quiz-like game. Participants hear a sound and have to find the "right" sketch from 4 different options. The aim of this study is to find out if these sketches can successfully communicate the characteristics of a sound.
