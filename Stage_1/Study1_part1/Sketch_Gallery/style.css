@@ -44,6 +44,12 @@ body {
     top: -25px;
 }
 
+#hide-header {
+    font-size: 2rem;
+    font-style: bold;
+    
+}
+
 #close-sidebar:hover {
     cursor: pointer;
     color: darkgrey;
