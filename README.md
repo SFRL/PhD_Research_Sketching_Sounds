@@ -10,7 +10,7 @@ For a quick overview, please have a look at this [website](https://sfrl.github.i
 ## Study 1.1 - Sketching Sounds: An exploratory study on sound-shape associations 
 
 ### Introduction
-This study aims to discover how participants represent different sounds visually using a simple digital drawing interface. 28 participants were presented with 10 different sounds and were asked to draw whatever they believe represented the sound best. Sounds were chosen to represent different timbral characteristics (brightness, noisiness, warmth etc.) and sources (synthesisers, acoustic instruments and abstract textures). Each of the 10 sounds was repeated during a study run, leading to a total of 20 sketches per participant.
+This study aims to discover how participants represent different sounds visually using a simple digital drawing interface. 28 participants (14 female) were presented with 10 different sounds and were asked to draw whatever they believe represented the sound best. Sounds were chosen to represent different timbral characteristics (brightness, noisiness, warmth etc.) and sources (synthesisers, acoustic instruments and abstract textures). Each of the 10 sounds was repeated during a study run, leading to a total of 20 sketches per participant. Sketches were categorised by 6 participants (4 female) in a card sorting excercise.  
 
 ### Results
 The results show that the participants' sketches show some commonalities. While some participants use figurative images (e.g. a piano or a cello) to describe a sound, most chose abstract representations. Objective features like corner or curve points were extracted from these abstract sketches to find possible correlations with audio features. The results showed correlations that align with existing body of sound-shape research.
@@ -19,7 +19,9 @@ The results show that the participants' sketches show some commonalities. While 
 
 The study setup can be found [here](https://sfrl.github.io/PhD_Research_Sketching_Sounds/Stage_1/Study1_part1/Study_setup/).
 
-The Jupyter notebook containing the data analysis can be found [here](https://github.com/SFRL/PhD_Research_Sketching_Sounds/blob/master/Stage_1/Study1_part1/analysis.ipynb).
+The Jupyer notebook containing the anaylsis of the card sorting analysis can be found [here](https://github.com/SFRL/PhD_Research_Sketching_Sounds/blob/master/Stage_1/Study1_part1/Card_Sorting_Analysis.ipynb)
+
+The Jupyter notebook containing the data analysis can be found [here](https://github.com/SFRL/PhD_Research_Sketching_Sounds/blob/master/Stage_1/Study1_part1/Sketching_Sounds_an_exploratory_study_analysis.ipynb).
 
 The sketches have been compiled into an interactive gallery, including the sounds, that can be explored [here](https://sfrl.github.io/PhD_Research_Sketching_Sounds/Stage_1/Study1_part1/Sketch_Gallery/).
 
