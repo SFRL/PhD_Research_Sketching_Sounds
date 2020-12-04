@@ -37,3 +37,9 @@ This study is ongoing and does not have any results yet.
 The design for study 1 part 2 can be found [here](https://phd-studies-eddd5.web.app/). 
 
 
+## Study 2: Creating a sound-sketch dataset
+Study 2 will revolve around creating a controlled, large dataset (~150 participants) of sound-sketches. 
+
+A first prototype for the drawing interface can be found [here](https://sfrl.github.io/PhD_Research_Sketching_Sounds/Stage_2/Drawing_Interface/)
+
+
