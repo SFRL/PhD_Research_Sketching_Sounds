@@ -147,7 +147,7 @@ def angle_type(x, y, c, shift):
         return 'straight', alpha
 
 
-def post_process_corners(x, y, corners, straws):
+def post_process_corners(x, y, corners, straws, t1, t2max, t2min):
     proceed = False
     while not proceed:
         proceed = True
@@ -170,12 +170,12 @@ def post_process_corners(x, y, corners, straws):
             c2 = corners[i+1]
 
             if run == 1:  # Higher threshold on first run
-                t = 0.96
+                t = t1
             elif run == 2:  # Lower threshold on second run
                 if c2-c1 > 10:  # Threshold depending on how far corner points are apart
-                    t = 0.95
+                    t = t2max
                 else:
-                    t = 0.944
+                    t = t2min
 
             if is_line(x, y, c1, c2, t):
                 del corners[i]
@@ -253,7 +253,7 @@ def post_process_corners(x, y, corners, straws):
     return corners, curves, [straight, narrow_curved, wide_curved, obtuse, right, acute], [raw_angles, raw_curves]
 
 
-def compute_corners(x, y):
+def compute_corners(x, y, t1, t2max, t2min):
     W = 3  # Number of points of each side of straw middle
     N = len(x)  # number of points
     corners = [0]
@@ -300,23 +300,23 @@ def compute_corners(x, y):
         raw = [[], []]
     else:
         corners, curves, analysis, raw = post_process_corners(
-            x, y, corners, straws)
+            x, y, corners, straws, t1, t2max, t2min)
 
     return corners, curves, analysis, raw
 
 # Main routine
 
 
-def ss_main(x, y):
+def ss_main(x, y, t1, t2max, t2min):
     resampled = resample_data(x, y, 80)
     corners, curves, analysis, raw = compute_corners(
-        resampled[0], resampled[1])
+        resampled[0], resampled[1], t1, t2max, t2min)
     return corners, curves, analysis, resampled, raw
 
 # Parse data
 
 
-def short_straw(paths):
+def short_straw(paths, t1=0.96, t2max=0.95, t2min=0.944):
     all_corners = []  # Position of corner points
     all_curves = []  # Position of curve points
     nos = 0  # Number of straight segments
@@ -331,7 +331,7 @@ def short_straw(paths):
     # Iterate through all paths in sketch and append results to "global" variables
     for path in paths:
         if len(path[0]) > 1:  # Only consider paths that have at least 2 points
-            data = ss_main(path[0], path[1])
+            data = ss_main(path[0], path[1], t1, t2max, t2min)
             all_corners.append(data[0])
             all_curves.append(data[1])
             nos += data[2][0]

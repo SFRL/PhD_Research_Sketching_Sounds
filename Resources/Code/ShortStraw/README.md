@@ -34,7 +34,9 @@ Use the function `short_straw ` from `shortstraw.py` to calculate corner and cur
 - t2max : *float, optional*
   - Upper threshold for second postprocessing iteration, should be be between 0 and 1, *default = 0.95*
 - t2min : *float, optional*
-  - Lower threshold for second postprocessing iteration, should be be between 0 and 1, *default = 0.944*  
+  - Lower threshold for second postprocessing iteration, should be be between 0 and 1, *default = 0.944* 
+
+For a in depth description of the threshold, have a look at the Wolin et al. paper. If you just want to play around with the values, keep in mind that all values should be between 0 and 1 this should apply: `t1 > t2max > t2min`. 
 
 ## Returns
 
