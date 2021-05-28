@@ -221,7 +221,7 @@ def post_process_corners(x, y, corners, straws):
         arc = is_curve(x, y, c, shift)
         if arc:
             # curved += 2*shift
-            raw_curves = [arc]
+            raw_curves.append(arc)
             corners.remove(c)
             curves.append(c)
             length = len(corners)-1
