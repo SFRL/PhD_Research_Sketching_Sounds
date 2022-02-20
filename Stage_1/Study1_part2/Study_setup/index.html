@@ -1,0 +1,100 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="data/favicon.ico" type="image/x-icon">
+
+    <title>Seeing Sounds, Hearing Shapes</title>
+
+    <script language="javascript" type="text/javascript" src="p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="SSHS_functions.js"></script>
+    <script language="javascript" type="text/javascript" src="SSHS_game.js"></script>
+
+
+    <!-- This line removes any default padding and style.
+    You might only need one of these values set. -->
+    <style>
+
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .canvasoverlay {
+            position: absolute;
+            width: 400px;
+            height: 300px;
+            top: 100px;
+            left: 100px;
+            border: 2px solid black;
+            font-family: Courier New, Courier, monospace;
+            font-size: 12px;
+            color: black;
+            display: none;
+        }
+
+        #popup {
+            background-color: white;
+            padding: 10px;
+            display: none;
+            box-shadow: 2px 2px;
+        }
+
+        .buttoncontainer {
+            font: inherit;
+            width: 100%;
+            text-align: center;
+        }
+
+        .invisiblebutton {
+            border-style: none;
+            background-color: rgba(255,255,255,0);
+            position: absolute;
+        }
+
+        button {
+            margin: 0 10%;
+            font: inherit;
+            background-color: white;
+            text-align: center;
+            border-color: 1px solid black;
+            cursor: pointer;
+        }
+
+            button:active {
+                color: white;
+                background-color: black;
+            }
+    </style>
+</head>
+
+<body>
+    <script src="/__/firebase/7.19.1/firebase-app.js"></script>
+    <script src="/__/firebase/7.19.1/firebase-database.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+
+    <!-- Audio objects-->
+
+
+    <!-- Tutorialgif -->
+    <img src="data/SSHS_tutorial_low.gif" alt="Tutorial" class="canvasoverlay" id="tutorialGif" onload="incremementLoadingCount()">
+
+    <!-- Data submission pop-up -->
+    <div class="canvasoverlay" id="popup">
+        Before you continue, we would like to inform you that this game is part of an academic study that aims to
+        find out more about how people associate shapes with sound. If would like to support our research please carefully read our 
+        <a href="submissionInfo.html" target="_blank">information sheet</a> 
+
+        data from your interaction with the game and set a cookie. You can read more .
+        <br><br>
+        <div class="buttoncontainer">
+            <button type="button" onclick="acceptSubmission(true)">Accept</button>
+            <button type="button" onclick="acceptSubmission(false)">Cancel</button>
+        </div>
+    </div>
+</body>
+  </html>
